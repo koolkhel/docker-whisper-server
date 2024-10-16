@@ -10,6 +10,7 @@ gunicorn \
   --workers=$APP_WORKERS \
   --bind=${APP_BIND}:${APP_PORT} \
   --log-level=info \
+  --timeout=3600 \
   --error-logfile=/dev/stderr \
   --access-logfile=/dev/stdout \
   --log-file=/dev/stdout \

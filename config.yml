@@ -1,0 +1,18 @@
+models:
+  base:
+    owned_by: organization-owner
+    endpoints:
+      - base_url: http://host.docker.internal:8083/inference
+  #tiny:
+  #  owned_by: organization-owner
+  #  endpoints:
+  #    - base_url: http://whisper01:9000/inference
+  #large-v2:
+  #  owned_by: organization-owner
+  #  endpoints:
+  #    - base_url: http://whisper02:9000/inference
+  #    - base_url: http://whisper03:9000/inference
+  #large-v3:
+  #  owned_by: organization-owner
+  #  endpoints:
+  #    - base_url: http://whisper04:9000/inference

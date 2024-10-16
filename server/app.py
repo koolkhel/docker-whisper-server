@@ -19,7 +19,8 @@ _log.info(f'API listening on port: {api_port}')
 
 # Initialize Flask application and load system configuration
 app = Flask(__name__)
-app.config['MAX_CONTENT_LENGTH'] = 25 * 1024 * 1024  # 25MB max
+#app.config['MAX_CONTENT_LENGTH'] = 25 * 1024 * 1024  # 25MB max
+app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 1024  # 1024MB max
 app.logger.setLevel(logging.INFO)
 CORS(app, resources={r"/*": {"origins": "*"}})
 

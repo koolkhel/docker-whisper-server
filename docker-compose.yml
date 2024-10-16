@@ -1,0 +1,51 @@
+x-shared-logs: &shared-logs
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "10k"
+
+x-shared-deploy: &shared-deploy
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia
+            count: 1
+            capabilities: [ gpu ]
+  <<: *shared-logs
+
+services:
+
+  server:
+    restart: "unless-stopped"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    build:
+      context: ./server
+    volumes:
+      - ./config.yml:/app/config.yml
+    ports:
+      - "0.0.0.0:5000:5000"
+    <<: *shared-logs
+
+  server-swagger:
+    restart: "unless-stopped"
+    image: swaggerapi/swagger-ui:v5.17.14
+    ports:
+      - "127.0.0.1:5010:8080"
+    volumes:
+      - ./server/openapi.yaml:/openapi.yaml
+    environment:
+      SWAGGER_JSON: /openapi.yaml
+    <<: *shared-logs
+
+  whisper-swagger:
+    restart: "unless-stopped"
+    image: swaggerapi/swagger-ui:v5.17.14
+    ports:
+      - "127.0.0.1:9010:8080"
+    volumes:
+      - ./whisper/openapi.yaml:/openapi.yaml
+    environment:
+      SWAGGER_JSON: /openapi.yaml
+    <<: *shared-logs
